@@ -14,11 +14,6 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping
-    public ResponseEntity<Cart> createCart() {
-        return new ResponseEntity<>(cartService.createCart(), HttpStatus.CREATED);
-    }
-
     @GetMapping("/{cartId}")
     public ResponseEntity<Cart> getCart(@PathVariable Long cartId) {
         return new ResponseEntity<>(cartService.getCart(cartId), HttpStatus.OK);
