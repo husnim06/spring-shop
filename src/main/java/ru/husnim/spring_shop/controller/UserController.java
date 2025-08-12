@@ -22,12 +22,12 @@ public class UserController {
     public List<UserResponseDTO> getAllUsers() {
         return userService.getAllUsers();
     }
-    
+
     @GetMapping("/id/{id}")
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.FOUND);
     }
-    
+
     @GetMapping("/name/{name}")
     public ResponseEntity<UserResponseDTO> getUserByName(@PathVariable String name) {
         return new ResponseEntity<>(userService.getUserByName(name), HttpStatus.FOUND);
@@ -48,5 +48,5 @@ public class UserController {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    
+
 }
