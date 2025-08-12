@@ -27,7 +27,7 @@ public class CartService {
                 .orElseThrow(() -> new RuntimeException("Корзина не найдена"));
     }
 
-    public void addItemToCart(Long cartId, Long productId, int quantity) {
+    public Cart addItemToCart(Long cartId, Long productId, int quantity) {
         Cart cart = getCart(cartId);
         
         // Загружаем продукт по ID
@@ -36,24 +36,29 @@ public class CartService {
 
         // Создаем новый элемент корзины
         CartItem cartItem = new CartItem();
-        cartItem.setProduct(product); // Устанавливаем загруженный продукт
+        cartItem.setProduct(product);
         cartItem.setQuantity(quantity);
         
         // Добавляем элемент в корзину
         cart.getItems().add(cartItem);
-        cartRepository.save(cart);
+        return cartRepository.save(cart);
     }
 
-    public void removeItemFromCart(Long cartId, Long cartItemId) {
+    public Cart removeItemFromCart(Long cartId, Long cartItemId) {
         Cart cart = getCart(cartId);
         cart.getItems().removeIf(item -> item.getId().equals(cartItemId));
-        cartRepository.save(cart);
+        return cartRepository.save(cart);
     }
 
-    public void clearCart(Long cartId) {
+    public Cart clearCart(Long cartId) {
         Cart cart = getCart(cartId);
         cart.getItems().clear();
-        cartRepository.save(cart);
+        return cartRepository.save(cart);
+    }
+    
+    public void deleteCart(Long cartId) {
+        Cart cart = getCart(cartId);
+        cartRepository.delete(cart);
     }
     
 }
