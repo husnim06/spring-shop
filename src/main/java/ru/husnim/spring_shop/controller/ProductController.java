@@ -21,15 +21,20 @@ public class ProductController {
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
-    
+
     @GetMapping("/id{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         return new ResponseEntity<>(productService.getProductById(id), HttpStatus.FOUND);
     }
-    
+
     @GetMapping("/name{name}")
     public ResponseEntity<Product> getProductByName(@PathVariable String name) {
         return new ResponseEntity<>(productService.getProductByName(name), HttpStatus.FOUND);
+    }
+
+    @GetMapping("/category/{categoryName}")
+    public List<Product> getProductsByCategoryName(@PathVariable String categoryName) {
+        return productService.getProductsByCategoryName(categoryName);
     }
 
     @PostMapping
@@ -47,4 +52,5 @@ public class ProductController {
         productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
 }
